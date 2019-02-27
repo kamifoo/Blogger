@@ -14,3 +14,4 @@
 /src/main/resources/application-pro.yml
 /src/main/resources/application-dev.yml
 
+.DS_Store
