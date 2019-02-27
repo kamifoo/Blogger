@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <!-- Import semantic ui and my css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../static/css/blog.css" th:href="@{/css/blog.css}">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="ui inverted attached segment index-padding-tb-soft" id="nav-bar" th:replace="_fragments :: active(1)">
+
+</nav>
+
+<!-- Main body -->
+<div class="index-padding-tb-strong blog-container" id="main-blog">
+    <div class="ui container">
+        <!--Blog Header-->
+        <div class="ui segment top attached">
+            <div class="ui horizontal link list">
+                <div class="item">
+                    <img src="#" th:src="@{${blog.user.avatar}}" alt="user avatar" class="ui avatar image">
+                    <div class="content"><a href="#" class="header" th:text="${blog.user.nickName}">User</a></div>
+                </div>
+                <div class="item">
+                    <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime, 'dd-MM-yyyy')}">2019-02-04</span>
+                </div>
+                <div class="item">
+                    <i class="eye icon"></i><span th:text="${blog.view}">2333</span>
+                </div>
+            </div>
+        </div>
+
+        <!--Blog Image-->
+        <div class="ui orange attached segment">
+            <img src="https://picsum.photos/g/800/400/?random" th:src="@{${blog.featurePicture}}" alt=""
+                 class="ui fluid image rounded">
+        </div>
+
+        <!--Blog Content-->
+        <div class="ui attached segment index-padding-soft animated fadeIn js-toc-content">
+            <div class="ui right aligned basic segment">
+                <div class="ui orange label basic" th:text="${blog.flag}">Original</div>
+            </div>
+
+            <h2 class="ui center aligned header" id="blog-title" th:text="${blog.title}">Title</h2>
+            <div class="blog-content-padding-lr-normal blog-content-padding-tb-normal" th:utext="${blog.content}">
+            </div>
+
+            <!--Label-->
+            <div class="ui inverted section divider"></div>
+            <div class="blog-content-padding-lr-normal blog-content-padding-tb-normal">
+                <h4>Tags:</h4>
+                <div class="ui basic blue label" th:each="tag : ${blog.tags}" th:text="${tag.name}">
+                    Label
+                </div>
+            </div>
+        </div>
+
+        <!--Blog Info-->
+        <div class="ui attached positive message">
+            <div class="ui grid">
+                <div class="eleven wide column">
+                    <ui class="list">
+                        <li>Author: <span th:text="${blog.user.nickName}"></span></li>
+                        <li>Publish Time: <span th:text="${#dates.format(blog.updateTime, 'dd-MM-yyyy HH:mm')}"></span>
+                        </li>
+                    </ui>
+                </div>
+                <div class="five wide column">
+                    <!--Want to follow?-->
+                </div>
+            </div>
+        </div>
+
+        <!--Blog Comment-->
+        <div class="ui bottom attached segment" th:if="${blog.allowComment}">
+            <div class="ui blue segment" id="comment-pool">
+                <div th:fragment="commentList">
+                    <div class="ui threaded comments" style="max-width: 100%">
+                        <h3 class="ui dividing header">Comments</h3>
+                        <span style="font-style: italic; font-size: xx-small; !important;"><b>Sorry Reply Sub-comment Not Available Yet</b></span>
+                        <div class="comment" th:each="comment : ${comments}">
+                            <a href="" class="avatar">
+                                <img src="https://picsum.photos/100/100/?random" th:src="@{${comment.avatar}}"
+                                     alt="user avatar">
+                            </a>
+                            <div class="content">
+                                <a href="" class="author">
+                                    <span th:text="${comment.nickName}">User</span>
+                                    <div class="ui mini basic blue left pointing label index-padding-soft"
+                                         th:if="${comment.adminComment}">Blog Author
+                                    </div>
+                                </a>
+                                <div class="metadata">
+                                    <span class="date"
+                                          th:text="${#dates.format(comment.createTime, 'dd-MM-yyyy HH:mm')}">Today at 5:42PM</span>
+                                </div>
+                                <div class="text" th:text="${comment.content}">
+                                    Sample Comment
+                                </div>
+                                <div class="ui actions blue basic label">
+                                    <a href="#leaveComment" data-commentid="1" data-commentnickname="Nickname"
+                                       th:attr="data-commentid=${comment.id}, data-commentnickname=${comment.nickName}"
+                                       onclick="reply(this)" class="reply" style="color: #000;">Reply</a>
+                                </div>
+                            </div>
+                            <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
+                                <div class="comment" th:each="reply : ${comment.replyComments}">
+                                    <a href="#" class="avatar">
+                                        <img src="https://picsum.photos/100/100/?random" th:src="@{${reply.avatar}}"
+                                             alt="user avatar">
+                                    </a>
+                                    <div class="content">
+                                        <a href="" class="author">
+                                            <span th:text="${reply.nickName}">User</span>
+                                            <div class="ui mini basic blue left pointing label index-padding-soft"
+                                                 th:if="${reply.adminComment}">Blog Author
+                                            </div>
+                                            &nbsp;<span th:text="|@ ${reply.parentComment.nickName}|" class="m-teal">@ User</span>
+                                        </a>
+                                        <div class="metadata">
+                                            <span class="date"
+                                                  th:text="${#dates.format(comment.createTime, 'dd-MM-yyyy HH:mm')}">Today at 5:42PM</span>
+                                        </div>
+                                        <div class="text" th:text="${reply.content}">
+                                            Sample Comment
+                                        </div>
+
+                                        <!--TODO Replying for sub-comment will be in next version  -->
+                                        <!--<div class="ui actions blue basic label">-->
+                                            <!--<a href="#leaveComment" class="reply" style="color: #000;" data-commentid="1"-->
+                                               <!--data-commentnickname=""-->
+                                               <!--th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickName}"-->
+                                               <!--onclick="reply(this)">Reply</a>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div  id="leaveComment" class="ui form stackable">
+                <input type="hidden" name="blog.id" th:value="${blog.id}">
+                <input type="hidden" name="parentComment.id" value="-1">
+                <div class="field">
+                    <textarea name="comment-content" id="" placeholder="Leave comments?..."></textarea>
+                </div>
+                <div class="fields ">
+                    <div class="field blog-padding-b-soft">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="nickname" placeholder="Your Nickname">
+                        </div>
+                    </div>
+                    <div class="field blog-padding-b-soft">
+                        <div class="ui left icon input">
+                            <i class="mail icon"></i>
+                            <input type="text" name="email" placeholder="Your Email (Optional)">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <button id="comment-submit-btn" type="button"
+                                class="ui blue basic button circular">
+                            <i class="edit icon"></i>Publish
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=" blog-fixed blog-right-bottom index-margin-tb-easy">
+    <div class="ui vertical icon buttons">
+        <button class="ui blue toc button">Index</button>
+        <a href="#comment-pool" class="ui blue button">Comment</a>
+        <a href="#nav-bar" class="ui icon button"><i class="chevron up icon"></i></a>
+    </div>
+</div>
+
+<div class="ui toc-container flowing popup transition hidden" style="width: 250px !important;">
+    <ol class="js-toc">
+
+    </ol>
+</div>
+
+<!-- Footer -->
+<footer class="ui inverted vertical segment index-footer-text-style" th:replace="_fragments :: footer">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        <p class="index-opacity-soft">Copyright © 2019 Kamikid's Blog</p>
+        <p class="index-opacity-soft">Designed by Kamikid with Semantic UI</p>
+    </div>
+</footer>
+
+<!-- import jquery and semantic ui js -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+<script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+
+<!--Hamburger button function-->
+<script>
+    $('.menu.toggle').click(function () {
+        $('.mobile-item').toggleClass("index-mobile-hide");
+
+    });
+
+    $('.toc.button').popup({
+        popup: $('.toc-container.popup'),
+        on: 'click',
+        position: 'left center'
+    });
+
+    tocbot.init({
+        tocSelector: '.js-toc',
+        contentSelector: '.js-toc-content',
+        headingSelector: 'h1, h2, h3, h4'
+    });
+
+    $('.ui.form').form({
+        fields: {
+            comment: {
+                identifier: 'comment-content',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Empty Comment'
+                }]
+            },
+            nickname: {
+                identifier: 'nickname',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Empty Nickname'
+                }]
+            }
+        }
+    });
+
+    $('#comment-submit-btn').click(function () {
+        var filledForm = $('.ui.form').form('validate form');
+        if (filledForm) {
+            submitComment();
+        }
+    });
+
+    function cleanContent() {
+        $("[name = 'email']").val('');
+        $("[name = 'comment-content']").val('');
+        $("[name = 'nickname']").val('');
+        $("[name = 'parentComment.id']").val(-1);
+        $("[name='content']").attr("placeholder", "Leave comments?");
+    }
+
+    function submitComment() {
+        $("#comment-pool").load("/comments", {
+            "parentComment.id": $("[name = 'parentComment.id']").val(),
+            "blog.id": $("[name = 'blog.id']").val(),
+            "nickName": $("[name = 'nickname']").val(),
+            "email": $("[name = 'email']").val(),
+            "content": $("[name = 'comment-content']").val()
+        }, function (response, status, xhr) {
+            cleanContent();
+        });
+    }
+
+    function reply(obj) {
+        var commentId = $(obj).data('commentid');
+        var commentNickname = $(obj).data('commentnickname');
+        $("[name='comment-content']").attr("placeholder", "@" + commentNickname).focus();
+        $("[name='parentComment.id']").val(commentId);
+    }
+
+    $(function () {
+        var loadUrl = "/comments/" + $("[name = 'blog.id']").val();
+        $("#comment-pool").load(loadUrl);
+    });
+</script>
+
+</body>
+</html>

@@ -1,10 +1,15 @@
-# target & test & META_INF & local image lib folders
+
+#General folders & files
+/log/
+/.idea/
 /target/
 /src/test/
 /src/main/resources/static/image/
 /src/main/java/META-INF/
-/.DS_Store/
+*.DS_Store
+[Tt]humbs.db
 
 # critical
 /src/main/resources/application-pro.yml
+/src/main/resources/application-dev.yml
 

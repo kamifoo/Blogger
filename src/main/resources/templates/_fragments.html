@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">Blog</title>
+    <!-- Import semantic ui and my css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../static/css/blog.css" th:href="@{/css/blog.css}">
+</head>
+<body>
+<!-- Navigation -->
+<nav th:fragment="active(n)" class="ui inverted attached segment index-padding-tb-soft">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">
+                <img class="ui rounded image" src="../static/image/kw-logo.png" th:src="@{/image/kw-logo.png}"
+                     alt="logo">
+            </h2>
+            <a href="#" th:href="@{/}" th:classappend="${n==1}? 'active'" class="mobile-item item index-mobile-hide"><i
+                    class="mini home icon"></i>Home</a>
+            <a href="#" th:href="@{/category}" th:classappend="${n==2}? 'active'" class="mobile-item item index-mobile-hide"><i
+                    class="mini idea icon"></i>Categories</a>
+            <a href="#" th:href="@{/tag}" th:classappend="${n==3}? 'active'" class="mobile-item item index-mobile-hide"><i
+                    class="mini tags icon"></i>Tags</a>
+            <a href="#" th:href="@{/archive}" th:classappend="${n==4}? 'active'" class="mobile-item item index-mobile-hide"><i
+                    class="mini clone icon"></i>Archives</a>
+            <a href="#" th:href="@{/about}" th:classappend="${n==5}? 'active'" class="mobile-item item index-mobile-hide"><i
+                    class="mini info icon"></i>About</a>
+            <div class="right item index-mobile-hide">
+                <form action="#" th:action="@{/search}" method="POST" name="search">
+                    <div class="ui icon input">
+                        <input type="text" name="query" placeholder="Search?" th:value="${query}">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button index-top-right index-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!--Footer-->
+<footer class="ui inverted vertical segment index-footer-text-style">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        <p class="index-opacity-soft">Copyright © 2019 Kamikid's Blog</p>
+        <p class="index-opacity-soft">Designed by Kamikid with Semantic UI & Spring Framework</p>
+    </div>
+</footer>
+
+</body>
+</html>

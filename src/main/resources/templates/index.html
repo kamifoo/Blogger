@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <!-- Import semantic ui and my css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/blog.css" th:href="@{css/blog.css}">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="ui inverted attached segment index-padding-tb-soft" th:replace="_fragments :: active(1)">
+</nav>
+
+<!-- Main body -->
+<div class="index-padding-tb-strong index-container">
+    <div class="ui container">
+        <div class="ui stackable grid">
+
+            <!--Left Page for Blogs List-->
+            <div class="twelve wide column">
+
+                <!--Blog Header-->
+                <div class="ui top attached segment">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <h3 class="ui blue header">Blog</h3>
+                        </div>
+                        <div class="right aligned column">
+                            Totally <h3 class="ui orange header index-inline-block" th:text="${page.totalElements}">
+                            15</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Blog Content-->
+                <div class="ui orange attached segment">
+
+                    <!--Single Blog-->
+                    <div class="ui padded vertical segment">
+                        <div class="ui padded vertical segment index-padding-tb-normal">
+                            <div class="ui mobile stackable">
+                                <div class="ui reversed grid"  th:each="blog : ${page.content}">
+                                    <div class="eleven wide column">
+                                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}"
+                                                                 class="index-color-black"
+                                                                 th:text="${blog.title}">Title</a></h3>
+                                        <p th:text="|${blog.description}|">Paragraph lorem ipsum</p>
+                                        <div class="ui middle aligned grid">
+                                            <div class="row">
+                                                <div class="twelve wide column">
+                                                    <div class="ui horizontal link list">
+                                                        <div class="item">
+                                                            <img src="#" th:src="@{${blog.user.avatar}}" alt="user avatar"
+                                                                 class="ui avatar image">
+                                                            <div class="content">
+                                                                <a href="#" class="header index-user-name-text-style">
+                                                                    <span th:text="${blog.user.nickName}">UserName</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="item">
+                                                            <i class="calendar icon"></i><span
+                                                                th:text="${#dates.format(blog.updateTime, 'dd-MM-yyyy')}">2019-02-04</span>
+                                                        </div>
+                                                        <div class="item">
+                                                            <i class="eye icon"></i><span
+                                                                th:text="${blog.view}">100</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="column">
+                                                    <a href="#"
+                                                       class="ui label blue basic index-padding-soft index-opacity-soft"
+                                                       th:text="${blog.category.name}">Label</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="five wide column">
+                                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}">
+                                            <img th:src="@{${blog.featurePicture}}" alt="Content"
+                                                 class="ui rounded image" style="width: 250px; height:125px !important;">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Blog Footer-->
+                <div class="ui bottom attached segment">
+                    <div class="ui middle aligned two column grid" th:if="${page.totalPages}>1">
+                        <div class="column">
+                            <a href="#" class="ui blue basic button" th:href="/{page=${page.number}-1}"
+                               th:unless="${page.first}">Prev</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a href="#" class="ui blue basic button" th:href="/{page=${page.number}+1}"
+                               th:unless="${page.last}">Next</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Right Page for Cards-->
+            <div class="four wide column">
+
+                <!--Category Card-->
+                <div class="ui segments">
+                    <!--Category Card Header-->
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="idea icon"></i>Category
+                            </div>
+                            <div class="column right aligned">
+                                <a href="#" th:href="@{/category/-1}">More<i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Category Pool-->
+                    <div class="ui orange segment">
+                        <div class="ui fluid vertical menu">
+                            <a href="#" class="item" th:each="category : ${categories}" th:href="@{/category/{id}(id=${category.id})}">
+                                <span th:text="${category.name}">Category-1</span>
+                                <div class="ui blue basic left pointing label"
+                                     th:text="${#arrays.length(category.blogs)}">10
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Label Card-->
+                <div class="ui segments">
+                    <!--Label Card Header-->
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="tags icon"></i>Tag
+                            </div>
+                            <div class="column right aligned">
+                                <a href="#" th:href="@{/tag/-1}">More<i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Label Pool-->
+                    <div class="ui orange segment">
+                        <!--Label Item-->
+                        <a href="#" th:each="tag : ${tags}"
+                           class="ui blue basic label left pointing index-margin-tb-easy" th:href="@{/tag/{id}(id=${tag.id})}">
+                            <span th:text="${tag.name}">Label</span>
+                            <div class="detail" th:text="${#arrays.length(tag.blogs)}">10</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!--Recent Blog Card-->
+                <div class="ui segments">
+                    <div class="ui secondary segment ">
+                        <div class="column">
+                            <i class="bookmark icon"></i>Recommend
+                        </div>
+                    </div>
+                    <!--Recent Blog Pool-->
+                    <div class="ui orange segment" th:each="blog : ${blogs}">
+                        <a href="#" class="index-color-black" th:text="${blog.title}"
+                           th:href="@{/blog/{id}(id=${blog.id})}">Blog</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--When not to many content found, set the placeholder-->
+<div th:if="${page.totalElements}<4">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+
+<footer th:replace="_fragments :: footer"></footer>
+
+<!-- import jquery and semantic ui js -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<!--Hamburger button function-->
+<script>
+    $('.menu.toggle').click(function () {
+        $('.mobile-item').toggleClass("index-mobile-hide");
+
+    })
+</script>
+</body>
+</html>

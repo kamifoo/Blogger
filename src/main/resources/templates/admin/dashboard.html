@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Import semantic ui and my css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.4/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/blog.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="ui inverted attached segment index-padding-tb-soft" th:replace="admin/_fragments :: active(1)">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">
+                <img class="ui rounded image" src="../../static/image/kw-logo.png" alt="logo">
+            </h2>
+            <a href="#" class="active mobile-item item"><i class="mini home icon"></i>Home</a>
+            <a href="#" class="mobile-item item"><i class="mini idea icon"></i>Categories</a>
+            <a href="#" class="mobile-item item"><i class="mini tags icon"></i>Labels</a>
+
+            <div class="right menu">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img src="https://picsum.photos/100/100/?random" alt="user avatar" class="ui avatar image">
+                        User
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">Logout</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<!-- Main body -->
+<div class="index-padding-tb-strong index-container">
+    <div class="ui container">
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <p th:text="${message}">Message</p>
+        </div>
+
+        <!--Blog Search div-->
+        <div class="ui segment form">
+            <input type="hidden" name="page">
+            <div class="inline fields">
+
+                <div class="field">
+                    <input type="text" name="title" placeholder="Title">
+                </div>
+
+                <div class="field">
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="categoryId">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Category</div>
+                        <div class="menu">
+                            <div th:each="category : ${categories}" class="item" data-value="1"
+                                 th:data-value="${category.id}" th:text="${category.name}">Category 1
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="recommend" name="recommend">
+                        <label for="recommend">Recommend</label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <button type="button" id="search-btn" class="ui mini blue basic button"><i class="search icon"></i>Search
+                    </button>
+                </div>
+
+
+                <div class="field">
+                    <a href="#" th:href="@{/admin/dashboard/publish}" class="ui mini blue basic button"><i
+                            class="edit icon"></i>New</a>
+                </div>
+            </div>
+            </form>
+
+            <div id="table-container">
+                <!--Blog Table-->
+                <table class="ui table" th:fragment="blogList">
+                    <thead>
+                    <tr class="center aligned">
+                        <th>Blog ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Recommend?</th>
+                        <th>Allow Comment?</th>
+                        <th>Share Info?</th>
+                        <th>Published?</th>
+                        <th>Updated Time</th>
+                        <th>Manipulation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="center aligned" th:each="blog, iterStat : ${page.content}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${blog.title}">Title</td>
+                        <td th:text="${blog.category.name}">Category 1</td>
+                        <td th:text="${blog.recommend} ? 'Yes' : 'No' ">Yes</td>
+                        <td th:text="${blog.allowComment} ? 'Yes' : 'No' ">Yes</td>
+                        <td th:text="${blog.shareInfo} ? 'Yes' : 'No' ">Yes</td>
+                        <td th:text="${blog.published} ? 'Yes' : 'No' ">Yes</td>
+                        <td th:text="${blog.updateTime}">2019-02-06 09:00</td>
+                        <td>
+                            <a href="#" th:href="@{/admin/dashboard/{id}/edit(id=${blog.id})}"
+                               class="ui mini blue button">Edit</a>
+                            <a href="#" th:href="@{/admin/dashboard/{id}/delete(id=${blog.id})}"
+                               class="ui mini orange button">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="9" class=" center aligned">
+                            <div class="ui pagination menu" th:if="${page.totalPages}>1">
+                                <a onclick="page(this)" th:attr="data-page=${page.number}-1" th:unless="${page.first}"
+                                   class="item mini">Prev</a>
+                                <a onclick="page(this)" th:attr="data-page=${page.number}+1" th:unless="${page.last}"
+                                   class="item mini">Next</a>
+                            </div>
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- import jquery and semantic ui js -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<!--Dropdown function-->
+<script>
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    $('#search-btn').click(function () {
+        loadData();
+    });
+
+    $('.message .close').on('click', function () {
+        $(this).closest('.message')
+            .transition('fade');
+    });
+
+    function page(object) {
+        $("[name='page']").val($(object).data("page"));
+        loadData();
+    }
+
+
+    function loadData() {
+        $("#table-container").load("/admin/dashboard/search", {
+            title: $("[name='title']").val(),
+            categoryId: $("[name='categoryId']").val(),
+            recommend: $("[name='recommend']").prop('checked'),
+            page: $("[name='page']").val()
+        });
+    }
+</script>
+</body>
+</html>

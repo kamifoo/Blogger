@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag</title>
+    <!-- Import semantic ui and my css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.4/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/blog.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="ui inverted attached segment index-padding-tb-soft" th:replace="admin/_fragments :: active(3)">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui teal header item">
+                    <img class="ui rounded image" src="../../static/image/kw-logo.png" alt="logo">
+                </h2>
+                <a href="#" class="mobile-item item"><i class="mini home icon"></i>Home</a>
+                <a href="#" class="mobile-item item"><i class="mini idea icon"></i>Categories</a>
+                <a href="#" class="active mobile-item item"><i class="mini tags icon"></i>Tags</a>
+
+                <div class="right menu">
+                    <div class="ui dropdown item">
+                        <div class="text">
+                            <img src="https://picsum.photos/100/100/?random" alt="user avatar" class="ui avatar image">
+                            User
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" class="item">Logout</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Main body -->
+    <div class="index-padding-tb-strong index-container">
+        <div class="ui container">
+
+            <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">...</div>
+            <!--Blog Table-->
+            <table class="ui table">
+                <thead>
+                    <tr class="center aligned">
+                        <th>Tag ID</th>
+                        <th>Tag</th>
+                        <th>Manipulation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="center aligned" th:each="tag, iterStat : ${page.content}">
+                        <td th:text="${tag.id}">1</td>
+                        <td th:text="${tag.name}">Tag 1</td>
+                        <td>
+                            <a href="#" th:href="@{/admin/tag/{id}/edit(id=${tag.id})}" class="ui mini blue button">Edit</a>
+                            <a href="#" th:href="@{/admin/tag/{id}/delete(id=${tag.id})}" class="ui mini orange button">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="6" class=" center aligned">
+                            <div class="ui pagination menu"  th:if="${page.totalPages}>1">
+                                <a href="#" th:href="@{/admin/tag(page=${page.number}-1)}" class="item mini" th:unless="${page.first}">Prev</a>
+                                <a href="#" th:href="@{/admin/tag(page=${page.number}+1)}" class="item mini" th:unless="${page.last}">Next</a>
+                            </div>
+                            <a href="#" th:href="@{/admin/tag/edit}"  class="ui mini right floated blue basic button">Create</a>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+
+    </div>
+
+
+    <!-- import jquery and semantic ui js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <!--Dropdown function-->
+    <script>
+        $('.ui.dropdown').dropdown({
+            on: 'hover'
+        });
+    </script>
+</body>
+</html>

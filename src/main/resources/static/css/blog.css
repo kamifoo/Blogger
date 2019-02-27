@@ -1,0 +1,113 @@
+.index-padding-soft{
+    padding: 0.3em !important;
+}
+
+.index-padding-tb-soft{
+    padding-top:0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+
+.index-padding-tb-normal{
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+}
+
+.index-padding-tb-strong{
+    padding-top: 3em !important;
+    padding-bottom: 3em !important;
+}
+
+.index-margin-tb-easy{
+    margin-top: 0.5em !important;
+    margin-bottom: 0.5em !important;
+}
+
+.index-user-name-text-style{
+    font-weight: 200 !important;
+    line-height: 0.8 !important;
+}
+
+.index-footer-text-style {
+    font-weight: 300 !important;
+    letter-spacing: 0.05em !important;
+    line-height: 1.2;
+}
+
+.index-opacity-soft{
+    opacity: 0.8;
+}
+
+.index-inline-block{
+    display: inline-block !important;
+}
+
+.index-color-black{
+    color: #333333 !important;
+}
+
+.index-color-white{
+    color: #ffffff !important;
+}
+
+.index-top-right{
+    position: absolute;
+    top: 25px;
+    right: 0;
+
+}
+
+.index-container{
+    max-width: 72em !important;
+    margin: auto !important;
+}
+
+.index-mobile-show{
+    display: none !important;
+}
+
+@media screen and (max-width: 768px){
+    .index-mobile-hide{
+        display: none !important;
+    }
+    .index-mobile-show{
+        display: block !important;
+    }
+}
+
+.blog-container{
+    max-width: 60em !important;
+    margin: auto !important;
+}
+
+.blog-content-padding-lr-normal {
+    padding-right: 2em !important;
+    padding-left: 2em !important;
+}
+
+.blog-content-padding-lr-strong{
+    padding-right: 4em !important;
+    padding-left: 4em !important;
+}
+
+.blog-content-padding-tb-normal{
+    padding-top: 0.8em !important;
+    padding-bottom: 0.8em !important;
+}
+
+.blog-padding-b-soft{
+    padding-bottom: 0.3em !important;
+}
+
+.blog-fixed{
+    position: fixed !important;
+}
+
+.blog-right-bottom{
+    bottom: 0 !important;
+    right: 0 !important;
+}
+
+body{
+    background: url("https://picsum.photos/g/1920/1280/?random") no-repeat fixed;
+}
+
