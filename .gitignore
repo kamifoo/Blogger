@@ -8,6 +8,7 @@
 /src/main/java/META-INF/
 *.DS_Store
 [Tt]humbs.db
+.DS_Store
 
 # critical
 /src/main/resources/application-pro.yml
