@@ -17,8 +17,10 @@
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">
-                <img class="ui rounded image" src="../static/image/kw-logo.png" th:src="@{/image/kw-logo.png}"
-                     alt="logo">
+                <a href="#" th:href="@{/}">
+                    <img class="ui rounded image" src="../static/image/kw-logo.png" th:src="@{/image/kw-logo.png}"
+                                 alt="logo">
+                </a>
             </h2>
             <a href="#" th:href="@{/}" th:classappend="${n==1}? 'active'" class="mobile-item item index-mobile-hide"><i
                     class="mini home icon"></i>Home</a>
@@ -50,7 +52,7 @@
     <div class="ui center aligned container">
         <div class="ui inverted section divider"></div>
         <p class="index-opacity-soft">Copyright © 2019 Kamikid's Blog</p>
-        <p class="index-opacity-soft">Designed by Kamikid with Semantic UI & Spring Framework</p>
+        <p class="index-opacity-soft">Designed by Kamikid with Semantic UI & Spring</p>
     </div>
 </footer>
 

@@ -117,12 +117,14 @@
 
         <!--Bottom Navigation-->
         <div class="ui bottom attached segment">
-            <div class="ui middle aligned two column grid">
+            <div class="ui middle aligned two column grid" th:if="${page.totalPages}>1">
                 <div class="column">
-                    <a href="#" class="ui blue basic button">Prev</a>
+                    <a href="#" class="ui blue basic button"th:href="/{page=${page.number}-1}"
+                       th:unless="${page.first}">Prev</a>
                 </div>
                 <div class="right aligned column">
-                    <a href="#" class="ui blue basic button">Next</a>
+                    <a href="#" class="ui blue basic button"th:href="/{page=${page.number}+1}"
+                       th:unless="${page.last}">Next</a>
                 </div>
             </div>
         </div>
