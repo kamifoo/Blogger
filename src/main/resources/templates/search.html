@@ -10,46 +10,24 @@
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav class="ui inverted attached segment index-padding-tb-soft"  th:replace="_fragments :: active(1)">
-        <div class="ui container">
-            <div class="ui inverted secondary stackable menu">
-                <h2 class="ui teal header item">
-                    <img class="ui rounded image" src="../static/image/kw-logo.png" alt="logo">
-                </h2>
-                <a href="index.html" class="mobile-item item index-mobile-hide"><i class="mini home icon"></i>Home</a>
-                <a href="#" class="mobile-item item index-mobile-hide"><i class="mini idea icon"></i>Categories</a>
-                <a href="#" class="active mobile-item item index-mobile-hide"><i class="mini tags icon"></i>Tags</a>
-                <a href="#" class="mobile-item item index-mobile-hide"><i class="mini clone icon"></i>Archives</a>
-                <a href="#" class="mobile-item item index-mobile-hide"><i class="mini info icon"></i>About</a>
-                <div class="right item index-mobile-hide">
-                    <div class="ui icon input">
-                        <input type="text" placeholder="Search?">
-                        <i class="search link icon"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#" class="ui menu toggle black icon button index-top-right index-mobile-show">
-            <i class="sidebar icon"></i>
-        </a>
-    </nav>
+<header th:replace="_fragments :: active(1)">
+</header>
 
     <!-- Main body -->
-<div class="index-container index-padding-tb-strong">
-    <div class="ui container">
+<main class="index-container index-padding-tb-strong" role="main">
+    <section class="ui container">
 
         <!--Label Header-->
-        <div class="ui top attached segment">
+        <header class="ui top attached segment">
             <div class="ui middle aligned two column grid">
                 <div class="column">
-                    <h3 class="ui blue header">Result</h3>
+                    <h2 class="ui blue header">Result</h2>
                 </div>
                 <div class="right aligned column">
                     Totally <h2 class="ui orange header index-inline-block" th:text="${page.totalElements}">14</h2>
                 </div>
             </div>
-        </div>
+        </header>
 
 
         <!--Show Related Blogs-->
@@ -57,7 +35,7 @@
             <!--Blog Container-->
             <div class="ui padded vertical segment">
                 <div class="ui mobile stackable">
-                    <div class="ui reversed grid"  th:each="blog : ${page.content}">
+                    <article class="ui reversed grid"  th:each="blog : ${page.content}">
                         <div class="eleven wide column">
                             <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}"
                                                      class="index-color-black"
@@ -70,20 +48,20 @@
                                             <div class="item">
                                                 <img src="#" th:src="@{${blog.user.avatar}}" alt="user avatar"
                                                      class="ui avatar image">
-                                                <div class="content">
+                                                <i class="content">
                                                     <a href="#" class="header index-user-name-text-style">
                                                         <span th:text="${blog.user.nickName}">UserName</span>
                                                     </a>
-                                                </div>
+                                                </i>
                                             </div>
-                                            <div class="item">
+                                            <time class="item">
                                                 <i class="calendar icon"></i><span
                                                     th:text="${#dates.format(blog.updateTime, 'dd-MM-yyyy')}">2019-02-04</span>
-                                            </div>
-                                            <div class="item">
+                                            </time>
+                                            <p class="item">
                                                 <i class="eye icon"></i><span
                                                     th:text="${blog.view}">100</span>
-                                            </div>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -99,41 +77,39 @@
 
                         <div class="five wide column">
                             <a href="#" th:href="@{/blog/{id}(id=${blog.id})}">
-                                <img th:src="@{${blog.featurePicture}}" alt="Content"
-                                     class="ui rounded image" style="width: 250px; height:125px !important;">
+                                <figure>
+                                    <img th:src="@{${blog.featurePicture}}" alt="Content"
+                                         class="ui rounded image" style="width: 250px; height:125px !important;">
+                                    <figcaption style="display: none !important;">Feature Image</figcaption>
+                                </figure>
                             </a>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </div>
 
 
         <!--Blog Footer-->
-        <div class="ui bottom attached segment">
+        <footer class="ui bottom attached segment">
             <div class="ui middle aligned two column grid" th:if="${page.totalPages}>1">
                 <div class="column">
-                    <a href="#" class="ui blue basic button" th:href="/{page=${page.number}-1}"
-                       th:unless="${page.first}">Prev</a>
+                    <button href="#" class="ui blue basic button" th:href="/{page=${page.number}-1}"
+                       th:unless="${page.first}">Prev</button>
                 </div>
                 <div class="right aligned column">
-                    <a href="#" class="ui blue basic button" th:href="/{page=${page.number}+1}"
-                       th:unless="${page.last}">Next</a>
+                    <button href="#" class="ui blue basic button" th:href="/{page=${page.number}+1}"
+                       th:unless="${page.last}">Next</button>
                 </div>
             </div>
-        </div>
+        </footer>
 
 
-    </div>
-</div>
+    </section>
+</main>
 
     <!-- Footer -->
     <footer class="ui inverted vertical segment index-footer-text-style" th:replace="_fragments :: footer">
-        <div class="ui center aligned container">
-            <div class="ui inverted section divider"></div>
-            <p class="index-opacity-soft">Copyright © 2019 Kamikid's Blog</p>
-            <p class="index-opacity-soft">Designed by Kamikid with Semantic UI</p>
-        </div>
     </footer>
 
     <!-- import jquery and semantic ui js -->
