@@ -13,63 +13,65 @@
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="ui inverted attached segment index-padding-tb-soft" id="nav-bar" th:replace="_fragments :: active(1)">
+<header th:replace="_fragments :: active(1)">
+</header>
 
-</nav>
 
 <!-- Main body -->
-<div class="index-padding-tb-strong blog-container" id="main-blog">
+<main class="index-padding-tb-strong blog-container" id="main-blog">
     <div class="ui container">
         <!--Blog Header-->
-        <div class="ui segment top attached">
+        <header class="ui segment top attached">
             <div class="ui horizontal link list">
-                <div class="item">
+                <i class="item">
                     <img src="#" th:src="@{${blog.user.avatar}}" alt="user avatar" class="ui avatar image">
                     <div class="content"><a href="#" class="header" th:text="${blog.user.nickName}">User</a></div>
-                </div>
-                <div class="item">
+                </i>
+                <time class="item">
                     <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime, 'dd-MM-yyyy')}">2019-02-04</span>
-                </div>
-                <div class="item">
+                </time>
+                <p class="item">
                     <i class="eye icon"></i><span th:text="${blog.view}">2333</span>
-                </div>
+                </p>
             </div>
-        </div>
+        </header>
 
         <!--Blog Image-->
-        <div class="ui orange attached segment">
-            <img src="https://picsum.photos/g/800/400/?random" th:src="@{${blog.featurePicture}}" alt=""
+        <section class="ui orange attached segment">
+            <figure>
+            <img src="https://picsum.photos/g/800/400/?random" th:src="@{${blog.featurePicture}}" alt="Feature Picture"
                  class="ui fluid image rounded">
-        </div>
+                <figcaption style="display: none !important;">Feature Picture</figcaption>
+            </figure>
+        </section>
 
         <!--Blog Content-->
-        <div class="ui attached segment index-padding-soft animated fadeIn js-toc-content">
+        <section class="ui attached segment index-padding-soft animated fadeIn js-toc-content">
             <div class="ui right aligned basic segment">
-                <div class="ui orange label basic" th:text="${blog.flag}">Original</div>
+                <label class="ui orange label basic" th:text="${blog.flag}">Original</label>
             </div>
 
             <h2 class="ui center aligned header" id="blog-title" th:text="${blog.title}">Title</h2>
-            <div class="blog-content-padding-lr-normal blog-content-padding-tb-normal" th:utext="${blog.content}">
-            </div>
+            <article class="blog-content-padding-lr-normal blog-content-padding-tb-normal" th:utext="${blog.content}">
+            </article>
 
             <!--Label-->
             <div class="ui inverted section divider"></div>
-            <div class="blog-content-padding-lr-normal blog-content-padding-tb-normal">
+            <aside class="blog-content-padding-lr-normal blog-content-padding-tb-normal">
                 <h4>Tags:</h4>
-                <div class="ui basic blue label" th:each="tag : ${blog.tags}" th:text="${tag.name}">
+                <label class="ui basic blue label" th:each="tag : ${blog.tags}" th:text="${tag.name}">
                     Label
-                </div>
-            </div>
-        </div>
+                </label>
+            </aside>
+        </section>
 
         <!--Blog Info-->
-        <div class="ui attached positive message">
+        <section class="ui attached positive message">
             <div class="ui grid">
                 <div class="eleven wide column">
                     <ui class="list">
-                        <li>Author: <span th:text="${blog.user.nickName}"></span></li>
-                        <li>Publish Time: <span th:text="${#dates.format(blog.updateTime, 'dd-MM-yyyy HH:mm')}"></span>
+                        <li>Author: <i th:text="${blog.user.nickName}"></i></li>
+                        <li>Publish Time: <time th:text="${#dates.format(blog.updateTime, 'dd-MM-yyyy HH:mm')}"></time>
                         </li>
                     </ui>
                 </div>
@@ -77,34 +79,36 @@
                     <!--Want to follow?-->
                 </div>
             </div>
-        </div>
+        </section>
 
         <!--Blog Comment-->
-        <div class="ui bottom attached segment" th:if="${blog.allowComment}">
+        <section class="ui bottom attached segment" th:if="${blog.allowComment}">
             <div class="ui blue segment" id="comment-pool">
                 <div th:fragment="commentList">
                     <div class="ui threaded comments" style="max-width: 100%">
                         <h3 class="ui dividing header">Comments</h3>
                         <span style="font-style: italic; font-size: xx-small; !important;"><b>Sorry Reply Sub-comment Not Available Yet</b></span>
-                        <div class="comment" th:each="comment : ${comments}">
-                            <a href="" class="avatar">
+                        <comment class="comment" th:each="comment : ${comments}">
+                            <a href="#" class="avatar">
+                                <figure>
                                 <img src="https://picsum.photos/100/100/?random" th:src="@{${comment.avatar}}"
                                      alt="user avatar">
+                                </figure>
                             </a>
                             <div class="content">
                                 <a href="" class="author">
-                                    <span th:text="${comment.nickName}">User</span>
-                                    <div class="ui mini basic blue left pointing label index-padding-soft"
+                                    <i th:text="${comment.nickName}">User</i>
+                                    <label class="ui mini basic blue left pointing label index-padding-soft"
                                          th:if="${comment.adminComment}">Blog Author
-                                    </div>
+                                    </label>
                                 </a>
                                 <div class="metadata">
-                                    <span class="date"
-                                          th:text="${#dates.format(comment.createTime, 'dd-MM-yyyy HH:mm')}">Today at 5:42PM</span>
+                                    <time class="date"
+                                          th:text="${#dates.format(comment.createTime, 'dd-MM-yyyy HH:mm')}">Today at 5:42PM</time>
                                 </div>
-                                <div class="text" th:text="${comment.content}">
+                                <p class="text" th:text="${comment.content}">
                                     Sample Comment
-                                </div>
+                                </p>
                                 <div class="ui actions blue basic label">
                                     <a href="#leaveComment" data-commentid="1" data-commentnickname="Nickname"
                                        th:attr="data-commentid=${comment.id}, data-commentnickname=${comment.nickName}"
@@ -114,24 +118,26 @@
                             <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
                                 <div class="comment" th:each="reply : ${comment.replyComments}">
                                     <a href="#" class="avatar">
+                                        <figure>
                                         <img src="https://picsum.photos/100/100/?random" th:src="@{${reply.avatar}}"
                                              alt="user avatar">
+                                        </figure>
                                     </a>
                                     <div class="content">
                                         <a href="" class="author">
-                                            <span th:text="${reply.nickName}">User</span>
-                                            <div class="ui mini basic blue left pointing label index-padding-soft"
+                                            <i th:text="${reply.nickName}">User</i>
+                                            <label class="ui mini basic blue left pointing label index-padding-soft"
                                                  th:if="${reply.adminComment}">Blog Author
-                                            </div>
-                                            &nbsp;<span th:text="|@ ${reply.parentComment.nickName}|" class="m-teal">@ User</span>
+                                            </label>
+                                            &nbsp;<i th:text="|@ ${reply.parentComment.nickName}|" class="m-teal">@ User</i>
                                         </a>
                                         <div class="metadata">
-                                            <span class="date"
-                                                  th:text="${#dates.format(reply.createTime, 'dd-MM-yyyy HH:mm')}">Today at 5:42PM</span>
+                                            <time class="date"
+                                                  th:text="${#dates.format(reply.createTime, 'dd-MM-yyyy HH:mm')}">Today at 5:42PM</time>
                                         </div>
-                                        <div class="text" th:text="${reply.content}">
+                                        <p class="text" th:text="${reply.content}">
                                             Sample Comment
-                                        </div>
+                                        </p>
 
                                         <!--TODO Replying for sub-comment will be in next version  -->
                                         <!--<div class="ui actions blue basic label">-->
@@ -143,49 +149,51 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </comment>
                     </div>
                 </div>
             </div>
 
-            <div  id="leaveComment" class="ui form stackable">
+            <form id="leaveComment" class="ui form stackable">
                 <input type="hidden" name="blog.id" th:value="${blog.id}">
                 <input type="hidden" name="parentComment.id" value="-1">
-                <div class="field">
-                    <textarea name="comment-content" id="" placeholder="Leave comments?..."></textarea>
-                </div>
-                <div class="fields ">
-                    <div class="field blog-padding-b-soft">
-                        <div class="ui left icon input">
-                            <i class="user icon"></i>
-                            <input type="text" name="nickname" placeholder="Your Nickname">
-                        </div>
-                    </div>
-                    <div class="field blog-padding-b-soft">
-                        <div class="ui left icon input">
-                            <i class="mail icon"></i>
-                            <input type="text" name="email" placeholder="Your Email (Optional)">
-                        </div>
-                    </div>
+                <fieldset>
                     <div class="field">
-                        <button id="comment-submit-btn" type="button"
-                                class="ui blue basic button circular">
-                            <i class="edit icon"></i>Publish
-                        </button>
+                        <textarea name="comment-content" id="" placeholder="Leave comments?..."></textarea>
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div class="fields">
+                        <div class="field blog-padding-b-soft">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="nickname" placeholder="Your Nickname">
+                            </div>
+                        </div>
+                        <div class="field blog-padding-b-soft">
+                            <div class="ui left icon input">
+                                <i class="mail icon"></i>
+                                <input type="text" name="email" placeholder="Your Email (Optional)">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button id="comment-submit-btn" type="button"
+                                    class="ui blue basic button circular">
+                                <i class="edit icon"></i>Publish
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
     </div>
-</div>
+</main>
 
-<div class=" blog-fixed blog-right-bottom index-margin-tb-easy">
+<aside class=" blog-fixed blog-right-bottom index-margin-tb-easy">
     <div class="ui vertical icon buttons">
         <button class="ui blue toc button">Index</button>
         <a href="#comment-pool" class="ui blue button">Comment</a>
         <a href="#nav-bar" class="ui icon button"><i class="chevron up icon"></i></a>
     </div>
-</div>
+</aside>
 
 <div class="ui toc-container flowing popup transition hidden" style="width: 250px !important;">
     <ol class="js-toc">
@@ -195,11 +203,6 @@
 
 <!-- Footer -->
 <footer class="ui inverted vertical segment index-footer-text-style" th:replace="_fragments :: footer">
-    <div class="ui center aligned container">
-        <div class="ui inverted section divider"></div>
-        <p class="index-opacity-soft">Copyright © 2019 Kamikid's Blog</p>
-        <p class="index-opacity-soft">Designed by Kamikid with Semantic UI</p>
-    </div>
 </footer>
 
 <!-- import jquery and semantic ui js -->
