@@ -10,37 +10,15 @@
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="ui inverted attached segment index-padding-tb-soft" th:replace="_fragments :: active(4)">
-    <div class="ui container">
-        <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">
-                <img class="ui rounded image" src="../static/image/kw-logo.png" alt="logo">
-            </h2>
-            <a href="index.html" class="mobile-item item index-mobile-hide"><i class="mini home icon"></i>Home</a>
-            <a href="#" class="mobile-item item index-mobile-hide"><i class="mini idea icon"></i>Categories</a>
-            <a href="#" class="mobile-item item index-mobile-hide"><i class="mini tags icon"></i>Tags</a>
-            <a href="#" class="mobile-item item index-mobile-hide"><i class="mini clone icon"></i>Archives</a>
-            <a href="#" class="mobile-item item index-mobile-hide"><i class="mini info icon"></i>About</a>
-            <div class="right item index-mobile-hide">
-                <div class="ui icon input">
-                    <input type="text" placeholder="Search?">
-                    <i class="search link icon"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <a href="#" class="ui menu toggle black icon button index-top-right index-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
-</nav>
+<header th:replace="_fragments :: active(4)">
+</header>
 
 <!-- Main body -->
-<div class="index-container index-padding-tb-strong">
+<main class="index-container index-padding-tb-strong">
     <div class="ui container">
 
         <!--Archives Header-->
-        <div class="ui top attached segment">
+        <header class="ui top attached segment">
             <div class="ui middle aligned two column grid">
                 <div class="column">
                     <h3 class="ui blue header">Archives</h3>
@@ -49,20 +27,21 @@
                     Totally <h2 class="ui orange header index-inline-block" th:text="${blogCount}">14</h2>
                 </div>
             </div>
-        </div>
+        </header>
 
         <!--Yearly Archive Body-->
         <th:block th:each="yearly : ${archiveMap}">
-            <div class="ui attached orange segment">
+            <section class="ui attached orange segment">
 
                 <!--Year Title-->
                 <h2 class="ui center aligned header" th:text="${yearly.key}">2017</h2>
 
                 <!--Blog Menu-->
-                <div class="ui fluid vertical menu ">
+                <ul class="ui fluid vertical menu ">
 
                     <!--Single Blog-->
-                    <a href="#" class="item" th:each="blog : ${yearly.value}" th:href="@{/blog/{id}(id=${blog.id})}">
+                    <li th:each="blog : ${yearly.value}">
+                    <a href="#" class="item"  th:href="@{/blog/{id}(id=${blog.id})}">
                     <span>
                         <span th:text="${blog.title}">Title</span>
                         <div class="ui blue basic left pointing label"
@@ -72,13 +51,14 @@
                             Original
                         </div>
                     </a>
-                </div>
-            </div>
+                    </li>
+                </ul>
+            </section>
         </th:block>
 
 
     </div>
-</div>
+</main>
 <!--When not to many content found, set the placeholder-->
 <div th:if="${blogCount}<5">
     <br>
@@ -91,11 +71,6 @@
 </div>
 <!-- Footer -->
 <footer class="ui inverted vertical segment index-footer-text-style" th:replace="_fragments :: footer">
-    <div class="ui center aligned container">
-        <div class="ui inverted section divider"></div>
-        <p class="index-opacity-soft">Copyright © 2019 Kamikid's Blog</p>
-        <p class="index-opacity-soft">Designed by Kamikid with Semantic UI</p>
-    </div>
 </footer>
 
 <!-- import jquery and semantic ui js -->
