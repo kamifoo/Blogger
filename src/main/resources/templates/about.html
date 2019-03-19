@@ -10,128 +10,107 @@
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav class="ui inverted attached segment index-padding-tb-soft" th:replace="_fragments :: active(5)">
-        <div class="ui container">
-            <div class="ui inverted secondary stackable menu">
-                <h2 class="ui teal header item">
-                    <img class="ui rounded image" src="../static/image/kw-logo.png" alt="logo">
-                </h2>
-                <a href="#" class="active mobile-item item index-mobile-hide"><i class="mini home icon"></i>Home</a>
-                <a href="#" class="mobile-item item index-mobile-hide"><i class="mini idea icon"></i>Categories</a>
-                <a href="#" class="mobile-item item index-mobile-hide"><i class="mini tags icon"></i>Tags</a>
-                <a href="#" class="mobile-item item index-mobile-hide"><i class="mini clone icon"></i>Archives</a>
-                <a href="#" class="mobile-item item index-mobile-hide"><i class="mini info icon"></i>About</a>
-                <div class="right item index-mobile-hide">
-                    <div class="ui icon input">
-                        <input type="text" placeholder="Search?">
-                        <i class="search link icon"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#" class="ui menu toggle black icon button index-top-right index-mobile-show">
-            <i class="sidebar icon"></i>
-        </a>
-    </nav>
+
+<header th:replace="_fragments :: active(5)">
+</header>
 
     <!-- Main body -->
-    <div class="index-padding-tb-strong index-container">
+    <main class="index-padding-tb-strong index-container" role="main">
         <div class="ui container">
             <div class="ui grid stackable">
 
                 
                 <!--Right side-->
-                <div class="sixteen wide column">
+                <article class="sixteen wide column" role="article">
 
                     <!--About Header-->
-                    <div class="ui top attached segment">
-                        <div class="ui header">
+                    <header class="ui top attached segment">
+                        <h3 class="ui header">
                             Kamikid.Me
-                        </div>
-                    </div>
+                        </h3>
+                    </header>
 
                     <!--Statement-->
-                    <div class="ui orange attached segment">
+                    <section class="ui orange attached segment">
                         <p>Well, briefing? I am a learner. </p>
                         <p>A learner who is, during his life-time, trying the best to be more and more humble, resourceful and  life-respectful. I decided to constructe this blog because I still want a platform to share knowledges and spark ideas with you and us. Before I was using WordPress to post my articles, after my graduation of computer science major, I come up with the idea as why not build a blog by my own and essentially for others. Therefore, the project established and also open-sourced on GitHub.com. </p>
                         <p>To be honest, at the most beginning time, I am another newer to Spring Boot framework. The blog cannot be constructed and delopyed without the helps from those online not-met-yet teachers who would like to guide beginners, share knowledges and critise solutions.</p>
                         <p>Thank you and kind regards,</p>
                         <p>Kamikid</p>
-                    </div>
+                    </section>
 
                     <!--Interests-->
-                    <div class="ui attached segment">
+                    <section class="ui attached segment">
                         <p>Interests: <span style="font-style: italic; font-size: xx-small; !important;"> - Or even Desires maybe</span></p>
-                        <div class="ui blue basic label index-margin-tb-easy">
+                        <label class="ui blue basic label index-margin-tb-easy">
                             UI & UX Design
-                        </div>
-                        <div class="ui blue basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui blue basic label index-margin-tb-easy">
                             Eating & Cooking Food
-                        </div>
-                        <div class="ui blue basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui blue basic label index-margin-tb-easy">
                             Pure Music
-                        </div>
-                        <div class="ui blue basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui blue basic label index-margin-tb-easy">
                             Cats
-                        </div>
-                        <div class="ui blue basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui blue basic label index-margin-tb-easy">
                             Co-op Games
-                        </div>
-                        <div class="ui blue basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui blue basic label index-margin-tb-easy">
                             Volunteer
-                        </div>
-                        <div class="ui blue basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui blue basic label index-margin-tb-easy">
                             Learning
-                        </div>
-                    </div>
+                        </label>
+                    </section>
 
                     <!--Skills-->
-                    <div class="ui attached segment">
+                    <section class="ui attached segment">
                         <p>Experienced Skills:</p>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        <label class="ui orange basic label index-margin-tb-easy">
                             Full-Stack Application Development
-                        </div>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui orange basic label index-margin-tb-easy">
                             Data Analyst
-                        </div>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui orange basic label index-margin-tb-easy">
                             Java
-                        </div>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui orange basic label index-margin-tb-easy">
                             SQL
-                        </div>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui orange basic label index-margin-tb-easy">
                             C#
-                        </div>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui orange basic label index-margin-tb-easy">
                             git
-                        </div>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui orange basic label index-margin-tb-easy">
                             3D Modelling
-                        </div>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui orange basic label index-margin-tb-easy">
                             Digital Publish
-                        </div>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui orange basic label index-margin-tb-easy">
                             Python
-                        </div>
-                        <div class="ui orange basic label index-margin-tb-easy">
+                        </label>
+                        <label class="ui orange basic label index-margin-tb-easy">
                             Time Management
-                        </div>
-                    </div>
+                        </label>
+                    </section>
 
                     <!--Contact-->
-                    <div class="ui attached segment">
+                    <section class="ui attached segment">
                         <p>Contact:</p>
                         <a href="https://github.com/KamikidFu" target="_blank" class="ui circular icon button"><i class="github icon"></i></a>
                         <a href="https://www.linkedin.com/in/kamikid/" target="_blank" class="ui circular icon button"><i class="linkedin icon"></i></a>
                         <a href="mailto:kidfu@live.com" class="ui circular icon button"><i class="mail icon"></i></a>
-                    </div>
-                </div>
+                    </section>
+                </article>
             </div>
         </div>
-    </div>
+    </main>
 
 
     <br>
@@ -144,10 +123,6 @@
 
     <!-- Footer -->
     <footer class="ui inverted vertical segment index-footer-text-style" th:replace="_fragments :: footer">
-            <div class="ui inverted section divider"></div>
-            <p class="index-opacity-soft">Copyright © 2019 Kamikid's Blog</p>
-            <p class="index-opacity-soft">Designed by Kamikid with Semantic UI</p>
-        </div>
     </footer>
 
     <!-- import jquery and semantic ui js -->
