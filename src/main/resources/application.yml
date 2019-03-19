@@ -3,6 +3,6 @@ spring:
     mode: HTML
 
   profiles:
-    active: dist
+    active: dev
 
 comment.avatar: /image/avatar.png

@@ -11,7 +11,7 @@
 .DS_Store
 
 # critical
-/src/main/resources/application-pro.yml
-/src/main/resources/application-dev.yml
+/src/main/resources/application-dist-CTU.yml
+/src/main/resources/application-dist-SIN.yml
 
 .DS_Store
