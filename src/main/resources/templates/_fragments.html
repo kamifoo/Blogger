@@ -3,6 +3,8 @@
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Kamikid Fu">
+    <meta name="description" content="Blogs, form Kamikid">
     <title th:replace="${title}">Blog</title>
     <!-- Import semantic ui and my css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
@@ -12,30 +14,34 @@
     <link rel="stylesheet" href="../static/css/blog.css" th:href="@{/css/blog.css}">
 </head>
 <body>
+<header role="banner" th:fragment="active(n)">
 <!-- Navigation -->
-<nav th:fragment="active(n)" class="ui inverted attached segment index-padding-tb-soft">
+    <nav class="ui inverted attached segment index-padding-tb-soft"  role="navigation">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">
                 <a href="#" th:href="@{/}">
-                    <img class="ui rounded image" style="max-width: 3em;  max-height: 3em; !important;" src="../static/image/kw-logo.png" th:src="@{/image/kw-logo.png}"
+                    <figure>
+                        <img class="ui rounded image" style="max-width: 3em;  max-height: 3em; !important;" src="../static/image/kw-logo.png" th:src="@{/image/kw-logo.png}"
                                  alt="logo">
+                        <figcaption style="display: none !important;">Kamikid's Blog Logo</figcaption>
+                    </figure>
                 </a>
             </h2>
-            <a href="#" th:href="@{/}" th:classappend="${n==1}? 'active'" class="mobile-item item index-mobile-hide"><i
-                    class="mini home icon"></i>Home</a>
-            <a href="#" th:href="@{/category}" th:classappend="${n==2}? 'active'" class="mobile-item item index-mobile-hide"><i
-                    class="mini idea icon"></i>Categories</a>
-            <a href="#" th:href="@{/tag}" th:classappend="${n==3}? 'active'" class="mobile-item item index-mobile-hide"><i
-                    class="mini tags icon"></i>Tags</a>
-            <a href="#" th:href="@{/archive}" th:classappend="${n==4}? 'active'" class="mobile-item item index-mobile-hide"><i
-                    class="mini clone icon"></i>Archives</a>
-            <a href="#" th:href="@{/about}" th:classappend="${n==5}? 'active'" class="mobile-item item index-mobile-hide"><i
-                    class="mini info icon"></i>About</a>
-            <div class="right item index-mobile-hide">
+                <a href="#" th:href="@{/}" th:classappend="${n==1}? 'active'" class="mobile-item item index-mobile-hide"><i
+                        class="mini home icon"></i>Home</a>
+                <a href="#" th:href="@{/category}" th:classappend="${n==2}? 'active'" class="mobile-item item index-mobile-hide"><i
+                        class="mini idea icon"></i>Categories</a>
+                <a href="#" th:href="@{/tag}" th:classappend="${n==3}? 'active'" class="mobile-item item index-mobile-hide"><i
+                        class="mini tags icon"></i>Tags</a>
+                <a href="#" th:href="@{/archive}" th:classappend="${n==4}? 'active'" class="mobile-item item index-mobile-hide"><i
+                        class="mini clone icon"></i>Archives</a>
+                <a href="#" th:href="@{/about}" th:classappend="${n==5}? 'active'" class="mobile-item item index-mobile-hide"><i
+                        class="mini info icon"></i>About</a>
+            <div class="right item index-mobile-hide" role="search">
                 <form action="#" th:action="@{/search}" method="POST" name="search">
                     <div class="ui icon input">
-                        <input type="text" name="query" placeholder="Search?" th:value="${query}">
+                        <input type="text" name="query" placeholder="Search?" th:value="${query}" aria-required="true" aria-label="Search Bar">
                         <i onclick="document.forms['search'].submit()" class="search link icon"></i>
                     </div>
                 </form>
@@ -46,9 +52,10 @@
         <i class="sidebar icon"></i>
     </a>
 </nav>
+</header>
 
 <!--Footer-->
-<footer class="ui inverted vertical segment index-footer-text-style">
+<footer class="ui inverted vertical segment index-footer-text-style" role="contentinfo">
     <div class="ui center aligned container">
         <div class="ui inverted section divider"></div>
         <p class="index-opacity-soft">Copyright © 2019 Kamikid's Blog</p>
