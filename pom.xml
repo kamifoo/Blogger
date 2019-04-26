@@ -10,7 +10,7 @@
     </parent>
     <groupId>me.kamikid</groupId>
     <artifactId>blog</artifactId>
-    <version>0.0.3-Online</version>
+    <version>0.0.5-Online</version>
     <packaging>jar</packaging>
 
     <name>Blog</name>
