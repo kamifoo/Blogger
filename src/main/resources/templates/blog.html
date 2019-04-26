@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title th:text="${blog.title}">Kamikid's Blog</title>
     <!-- Import semantic ui and my css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
@@ -37,13 +37,15 @@
         </header>
 
         <!--Blog Image-->
-        <section class="ui orange attached segment">
-            <figure>
-            <img src="https://picsum.photos/g/800/400/?random" th:src="@{${blog.featurePicture}}" alt="Feature Picture"
-                 class="ui fluid image rounded">
-                <figcaption style="display: none !important;">Feature Picture</figcaption>
-            </figure>
-        </section>
+        <div th:if="${blog.featurePicture != ''}">
+            <section class="ui orange attached segment">
+                <figure>
+                <img src="https://picsum.photos/g/800/400/?random" th:src="@{${blog.featurePicture}}" alt="Feature Picture"
+                     class="ui fluid image rounded">
+                    <figcaption style="display: none !important;">Feature Picture</figcaption>
+                </figure>
+            </section>
+        </div>
 
         <!--Blog Content-->
         <section class="ui attached segment index-padding-soft animated fadeIn js-toc-content">
@@ -87,7 +89,6 @@
                 <div th:fragment="commentList">
                     <div class="ui threaded comments" style="max-width: 100%">
                         <h3 class="ui dividing header">Comments</h3>
-                        <span style="font-style: italic; font-size: xx-small; !important;"><b>Sorry Reply Sub-comment Not Available Yet</b></span>
                         <comment class="comment" th:each="comment : ${comments}">
                             <a href="#" class="avatar">
                                 <figure>
